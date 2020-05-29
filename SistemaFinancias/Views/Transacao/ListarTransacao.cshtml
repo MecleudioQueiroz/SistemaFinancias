@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "ListarTransacao";
+}
+
+<h2>Lista de Transação</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ações</th>
+            <th>Id</th>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Valor</th>
+            <th>Historico</th>
+            <th>Conta</th>
+            <th>Plano de Contas</th>    
+        </tr>
+    </thead>
+
+    @foreach (var item in (List<Transacao>)ViewBag.ListarTransacao)
+    {
+        <tbory>
+            <tr>
+                <td>
+                    <button type="button" class=" btn btn-primary" onclick="EditarTransacao(@item.Id.ToString())">Editar</button>
+                    <button type="button" class=" btn btn-danger" onclick="ExcluirTransacao(@item.Id.ToString())">Excluir</button>
+                </td>
+                <td>@item.Id.ToString()</td>
+                <td>@item.Data.ToString()</td>
+                <td>@item.Tipo.ToString().Replace("R", "Receita").Replace("D", "Despesa")</td>
+                <td>R$ @item.Valor.ToString()</td>
+                <td>@item.Descricao.ToString()</td>
+                <td>@item.NomeConta.ToString()</td>
+                <td>@item.DescricaoPlanoConta.ToString()</td>
+            </tr>
+        </tbory>
+    }
+</table>
+<button type="button" class="btn btn-primary btn-block" onclick="NovaTransacao()" style="color:white">Novo Plano De Contas</button>
+
+<script>
+    function NovaTransacao()
+    {
+        window.location.href = "../Transacao/NovaTransacao";
+    }
+
+    function ExcluirTransacao(id)
+    {
+        window.location.href = "../Transasao/ExcluirTransacao/" + id;
+    }
+
+    function EditarTransacao(id) {
+        window.location.href = "../Transacao/NovaTransacao/" + id;
+    }
+</script>

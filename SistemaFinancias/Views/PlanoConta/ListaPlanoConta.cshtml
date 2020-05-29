@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Lista Plano de Contas</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ações</th>
+            <th>Id</th>
+            <th>Tipo</th>
+            <th>Id Usuário</th>
+            <th>Descrição</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in (List<PlanoDeConta>)ViewBag.ListaPlanoContas)
+    {
+        <tbory>
+            <tr>
+                <td>
+                    <button type="button" class=" btn btn-primary" onclick="EditarPlano(@item.Id.ToString())">Editar</button>
+                    <button type="button" class=" btn btn-danger" onclick="ExcluirPlano(@item.Id.ToString())">Excluir</button>
+                </td>
+                <td>@item.Id</td>
+                <td>@item.Tipo.ToString().Replace("R", "Receita").Replace("D", "Despesa")</td>
+                <td>@item.Usuario_Id</td>
+                <td>@item.Descricao</td>
+            </tr>
+        </tbory>
+    }
+</table>
+@*<button type="button" class="btn btn-primary btn-block"><a href="../PlanoConta/NovoPlanoDeContas" style="color:white">Novo Plano De Contas</a></button>*@
+<button type="button" class="btn btn-primary btn-block" onclick="NovoPlanoDeContas()" style="color:white">Novo Plano De Contas</button>
+
+<script>
+    function NovoPlanoDeContas()
+    {
+        window.location.href = "../PlanoConta/NovoPlanoDeContas";
+    }
+
+    function ExcluirPlano(id_plano)
+    {
+        window.location.href = "../PlanoConta/ExcluirPlanoConta/" + id_plano;
+    }
+
+    function EditarPlano(id) {
+        window.location.href = "../PlanoConta/NovoPlanoDeContas/" + id;
+    }
+</script>
