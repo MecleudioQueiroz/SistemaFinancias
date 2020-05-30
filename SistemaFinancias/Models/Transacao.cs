@@ -11,8 +11,7 @@ namespace SistemaFinancias.Models
 {
     public class Transacao
     {
-        public int Id { get; set; }
-        [Required(ErrorMessage ="Campo Obrigatorio")]
+        public int Id { get; set; }       
         public string Data { get; set; }
         public string Tipo { get; set; }
         public double Valor { get; set; }
@@ -71,15 +70,15 @@ namespace SistemaFinancias.Models
 
         public void NovaTransacao()
         {
-            string UsuarioLogado =  HttpContextAccessor.HttpContext.Session.GetString("IdUsuarioLogado");
+            string UsuarioLogado = HttpContextAccessor.HttpContext.Session.GetString("IdUsuarioLogado");
             string sql = "";
             if (Id == 0)
             {
-                sql = $"insert into transacao (Data, Tipo, Valor, Descricao, Conta_Id, Plano_Contas_Id, Usuario_Id) values ('{Data}','{Tipo}','{Valor}','{Descricao}','{Conta_Id}','{Plano_Contas_Id}','{UsuarioLogado}";               
+                sql = $"Insert Into transacao (Data, Tipo, Valor, Descricao, Conta_Id, Plano_Contas_Id, Usuario_Id) values ('{DateTime.Parse(Data).ToString("yyyy/MM/dd")}','{Tipo}','{Valor}','{Descricao}','{Conta_Id}','{Plano_Contas_Id}','{UsuarioLogado}')";               
             }
             else
             {
-                sql = $"update transacao set Data = '{Data}' Tipo = '{Tipo}' Valor = '{Valor}' Descricao = '{Descricao}' Conta_Id = '{Conta_Id}' Plano_Contas_Id = '{Plano_Contas_Id}' Usuario_Id = {UsuarioLogado} and Id = '{Id}'";
+                sql = $"update transacao set Data = '{DateTime.Parse(Data).ToString("yyyy/MM/dd")}' Tipo = '{Tipo}' Valor = '{Valor}' Descricao = '{Descricao}' Conta_Id = '{Conta_Id}' Plano_Contas_Id = '{Plano_Contas_Id}' Usuario_Id = {UsuarioLogado} and Id = '{Id}'";
             }
             new DAL().ExecultarComandoSql(sql);
         }

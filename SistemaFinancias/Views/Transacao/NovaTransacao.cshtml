@@ -23,14 +23,13 @@
     }
 }
 
-
 <form asp-controller="Transacao" asp-action="NovaTransacao">
     <input type="hidden" asp-for="Id" value="@vId" />
 
     <div class="form-group">
-        <label for="Descricao">Data:</label>
-        <input type="text" class="form-control" asp-for="Data" value="@vData" />
-        <span asp-validation-for="Descricao" class="text-danger"></span>
+        <label>Data:</label>
+        <input type="date" class="form-control" asp-for="Data" value="@vData" />
+        <span asp-validation-for="Data" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -50,15 +49,36 @@
     </div>
 
     <div class="form-group">
-        <label for="Descricao">Valor</label>
+        <label>Valor</label>
         <input type="number" class="form-control" asp-for="Valor" value="@vValor" />
         <span asp-validation-for="Valor" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="Descricao">Descrição</label>
-        <input type="text" class="form-control" asp-for="Descricao" value="@vDescricao" />
+        <label>Histórico</label>
+        <textarea rows="5" class="form-control" asp-for="Descricao" value="@vDescricao"> </textarea>
         <span asp-validation-for="Descricao" class="text-danger"></span>
     </div>
+
+    <div class="form-group">
+        <label for="Conta">Conta: </label>
+        <select asp-for="Conta_Id" class="form-control">
+            @foreach (var item in (List<Conta>)ViewBag.ListaConta)
+            {
+                <option value="@item.Id">@item.Nome</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="Conta">Plano de Conta: </label>
+        <select asp-for="Plano_Contas_Id" class="form-control">
+            @foreach (var item in (List<PlanoDeConta>)ViewBag.ListaPlanoConta)
+            {
+                <option value="@item.Id">@item.Descricao</option>
+            }            
+        </select>
+    </div>
+
     <button type="submit" class="btn btn-success">Salvar</button>
 </form>

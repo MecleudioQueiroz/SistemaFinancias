@@ -20,13 +20,22 @@ namespace SistemaFinancias.Controllers
         public IActionResult ListarTransacao()
         {
             Transacao transacao = new Transacao(HttpContextAccessor);
-           ViewBag.ListarTransacao = transacao.ListaTransacao();
+            ViewBag.ListarTransacao = transacao.ListaTransacao();
             return View();
         }
 
         [HttpGet]
-        public IActionResult NovaTransacao()
+        public ActionResult NovaTransacao(int? id)
         {
+            if (id != null)
+            {
+                Transacao transacao = new Transacao(HttpContextAccessor);
+                //ViewBag.Registro = transacao.BuscarPorId(id);
+            }
+
+            //Buscando lista de conta e de plano de conta para as views
+            ViewBag.ListaConta = new Conta(HttpContextAccessor).ListaConta();
+            ViewBag.ListaPlanoConta = new PlanoDeConta(HttpContextAccessor).ListaPlanoContas();
             return View();
         }
 
