@@ -48,7 +48,7 @@ namespace SistemaFinancias.Controllers
 
         public IActionResult ExcluirPlanoConta(int id)
         {
-            PlanoDeConta plano = new PlanoDeConta();
+            PlanoDeConta plano = new PlanoDeConta(HttpContextAccessor);
             plano.ExcluirPlanoConta(id);
             return RedirectToAction("ListaPlanoConta");
         }

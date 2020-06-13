@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "ExcluirTransacao";
+}
+
+<h2><strong>id</strong> @ViewBag.Buscar.Id</h2>
+<h2><strong>id</strong> @ViewBag.Buscar.Valor</h2>
+<h2><strong>id</strong> @ViewBag.Buscar.Descricao</h2>
+<h2><strong>id</strong> @ViewBag.Buscar.Tipo</h2>
+
+<h2>Deseja Excluir essa Transacao ?</h2>
+
+<button type="button" onclick="excluir(@ViewBag.Buscar.Id)" class="btn btn-block btn-danger">Excluir</button>
+
+<script>
+    function excluir(id)
+    {
+        window.location.href = "../../Transacao/ExcluirTansacao/" + id;
+    }
+</script>
+

@@ -30,7 +30,8 @@ namespace SistemaFinancias.Controllers
             if (id != null)
             {
                 Transacao transacao = new Transacao(HttpContextAccessor);
-                //ViewBag.Registro = transacao.BuscarPorId(id);
+                ViewBag.Buscar = transacao.BuscarPorId(id);
+                
             }
 
             //Buscando lista de conta e de plano de conta para as views
@@ -51,8 +52,23 @@ namespace SistemaFinancias.Controllers
             return View();
         }
 
-        public IActionResult Extrato()
+        [HttpGet]
+        public IActionResult ExcluirTransacao(int id)
         {
+            Transacao transacao = new Transacao(HttpContextAccessor);
+            transacao.Excluir(id);
+            return RedirectToAction("ListarTransacao");
+
+        }
+
+        [HttpGet]
+        [HttpPost]
+        public IActionResult Extrato(Transacao transacao)
+        {
+            transacao.HttpContextAccessor = HttpContextAccessor;
+            ViewBag.ListarTransacao = transacao.ListaTransacao();
+            ViewBag.ListarConta = new Conta(HttpContextAccessor).ListaConta();
+            
             return View();
         }
 

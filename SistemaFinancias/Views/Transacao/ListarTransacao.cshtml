@@ -24,6 +24,7 @@
         <tbory>
             <tr>
                 <td>
+                    <a asp-action="ExcluirTransacao" asp-route-id="@item.Id">Excluir</a>
                     <button type="button" class=" btn btn-primary" onclick="EditarTransacao(@item.Id.ToString())">Editar</button>
                     <button type="button" class=" btn btn-danger" onclick="ExcluirTransacao(@item.Id.ToString())">Excluir</button>
                 </td>
@@ -46,12 +47,13 @@
         window.location.href = "../Transacao/NovaTransacao";
     }
 
-    function ExcluirTransacao(id)
-    {
-        window.location.href = "../Transasao/ExcluirTransacao/" + id;
-    }
+    //function ExcluirTransacao(id)
+    //{
+    //    window.location.href = "/Transacao/ExcluirTransacao/" + id;
+    //}
 
-    function EditarTransacao(id) {
+    function EditarTransacao(id)
+    {
         window.location.href = "../Transacao/NovaTransacao/" + id;
     }
 </script>

@@ -7,15 +7,22 @@
 
 @{
     var vData = "";
-    var vValor = "";
+    var vValor = 0.0;
     var vDescricao = "";
     var vTipo = "";
     var vId = 0;
+    var vConta_Id = 0;
+    var vPlanoConta_Id = 0;
     try
     {
-        vId = int.Parse(ViewBag.Registro.Id.ToString());
-        vDescricao = ViewBag.Registro.Descricao.ToString();
-        vTipo = ViewBag.Registro.Tipo.ToString();
+        vId = int.Parse(@ViewBag.Buscar.Id.ToString());
+        vDescricao = @ViewBag.Buscar.Descricao.ToString();
+        vTipo = @ViewBag.Buscar.Tipo.ToString();
+        vData = DateTime.Parse(@ViewBag.Buscar.Data.ToString()).ToString("yyyy-MM-dd");
+        vConta_Id = int.Parse(@ViewBag.Buscar.Conta_Id.ToString());
+        vPlanoConta_Id = int.Parse(@ViewBag.Buscar.Plano_Contas_Id.ToString());
+        vValor = Double.Parse(@ViewBag.Buscar.Valor.ToString());
+
     }
     catch
     {
@@ -56,7 +63,7 @@
 
     <div class="form-group">
         <label>Histórico</label>
-        <textarea rows="5" class="form-control" asp-for="Descricao" value="@vDescricao"> </textarea>
+        @Html.TextArea("Descricao",vDescricao, new { @class = "form-control" })
         <span asp-validation-for="Descricao" class="text-danger"></span>
     </div>
 
@@ -65,7 +72,15 @@
         <select asp-for="Conta_Id" class="form-control">
             @foreach (var item in (List<Conta>)ViewBag.ListaConta)
             {
-                <option value="@item.Id">@item.Nome</option>
+                if (item.Id == vConta_Id)
+                {
+                    <option selected value="@item.Id">@item.Nome</option>
+                }
+                else
+                {
+                    <option  value="@item.Id">@item.Nome</option>
+                }
+
             }
         </select>
     </div>
@@ -75,8 +90,16 @@
         <select asp-for="Plano_Contas_Id" class="form-control">
             @foreach (var item in (List<PlanoDeConta>)ViewBag.ListaPlanoConta)
             {
-                <option value="@item.Id">@item.Descricao</option>
-            }            
+                if (item.Id == vPlanoConta_Id)
+                {
+                    <option selected value="@item.Id">@item.Descricao</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Descricao</option>
+                }
+
+            }
         </select>
     </div>
 
