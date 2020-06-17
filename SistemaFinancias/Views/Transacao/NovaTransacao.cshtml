@@ -7,7 +7,7 @@
 
 @{
     var vData = "";
-    var vValor = 0.0;
+    var vValor = "";
     var vDescricao = "";
     var vTipo = "";
     var vId = 0;
@@ -57,7 +57,7 @@
 
     <div class="form-group">
         <label>Valor</label>
-        <input type="number" class="form-control" asp-for="Valor" value="@vValor" />
+        <input type="number" class="form-control" asp-for="Valor" value="@vValor" />       
         <span asp-validation-for="Valor" class="text-danger"></span>
     </div>
 

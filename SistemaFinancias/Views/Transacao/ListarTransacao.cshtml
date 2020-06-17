@@ -9,13 +9,14 @@
     <thead>
         <tr>
             <th>Ações</th>
+            <th>Ações</th>
             <th>Id</th>
             <th>Data</th>
             <th>Tipo</th>
             <th>Valor</th>
-            <th>Historico</th>
             <th>Conta</th>
-            <th>Plano de Contas</th>    
+            <th>Plano de Contas</th>
+            <th>Historico</th>
         </tr>
     </thead>
 
@@ -23,23 +24,20 @@
     {
         <tbory>
             <tr>
-                <td>
-                    <a asp-action="ExcluirTransacao" asp-route-id="@item.Id">Excluir</a>
-                    <button type="button" class=" btn btn-primary" onclick="EditarTransacao(@item.Id.ToString())">Editar</button>
-                    <button type="button" class=" btn btn-danger" onclick="ExcluirTransacao(@item.Id.ToString())">Excluir</button>
-                </td>
+                <td><button type="button" class=" btn btn-primary" onclick="EditarTransacao(@item.Id.ToString())">Editar</button></td>
+                <td><button type="button" class="btn btn-danger" onclick="ExcluirTransacao(@item.Id.ToString()">Excluir</button> </td>
                 <td>@item.Id.ToString()</td>
                 <td>@item.Data.ToString()</td>
                 <td>@item.Tipo.ToString().Replace("R", "Receita").Replace("D", "Despesa")</td>
-                <td>R$ @item.Valor.ToString()</td>
-                <td>@item.Descricao.ToString()</td>
+                <td>@item.Valor.ToString("C")</td>
                 <td>@item.NomeConta.ToString()</td>
                 <td>@item.DescricaoPlanoConta.ToString()</td>
+                <td>@item.Descricao.ToString()</td>
             </tr>
         </tbory>
     }
 </table>
-<button type="button" class="btn btn-primary btn-block" onclick="NovaTransacao()" style="color:white">Novo Plano De Contas</button>
+<button type="button" class="btn btn-primary btn-block" onclick="NovaTransacao()" style="color:white">Nova Transação</button>
 
 <script>
     function NovaTransacao()
@@ -47,10 +45,10 @@
         window.location.href = "../Transacao/NovaTransacao";
     }
 
-    //function ExcluirTransacao(id)
-    //{
-    //    window.location.href = "/Transacao/ExcluirTransacao/" + id;
-    //}
+    function ExcluirTransacao(id)
+    {
+        window.location.href = "/Transacao/ExcluirTransacao/" + id;
+    }
 
     function EditarTransacao(id)
     {

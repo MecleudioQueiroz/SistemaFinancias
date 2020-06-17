@@ -74,6 +74,21 @@ namespace SistemaFinancias.Controllers
 
         public IActionResult Dashboard()
         {
+            List<Dashboard> Lista = new Dashboard(HttpContextAccessor).Listadashboards();
+            string Valores = "";
+            string Cores = "";
+            string Labels = "";
+            var random = new Random();
+            for (int i = 0; i < Lista.Count; i++)
+            {
+                Valores += Lista[i].Total.ToString() + ",";
+                Labels += "'" + Lista[i].PlanoConta.ToString() + "',";
+                Cores += "'" + String.Format("#{0:X6}", random.Next(0x1000000)) + "',";
+            }
+
+            ViewBag.Cores = Cores;
+            ViewBag.Labels = Labels;
+            ViewBag.Valores = Valores;
             return View();
         }
     }

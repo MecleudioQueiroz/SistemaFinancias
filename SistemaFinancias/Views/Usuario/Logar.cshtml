@@ -1,23 +1,38 @@
 ﻿@model Usuario
 
-@if (TempData["MensagemErroLogin"] != null)
-{
-    <div class="alert alert-warning">
-        <strong>Atenção!</strong> @TempData["MensagemErroLogin"]
-    </div>
+@{
+    Layout = "../Shared/_LayoutLogin.cshtml";
 }
 
-<form asp-controller="Usuario" asp-action="ValidarLogin">
-    <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" class="form-control" asp-for="Email">
-    </div>
-    <div class="form-group">
-        <label for="pwd">Senha:</label>
-        <input type="password" class="form-control" asp-for="Senha">
-    </div>
-    <div class="checkbox">
-        <label><input type="checkbox"> Lembrar meu acesso</label>
-    </div>
-    <button type="submit" class="btn btn-default">Entrar</button>
-</form>
+
+<div class="container" style="background-color:#d5d3d3; border-radius: 10px; padding: 20px; width: 300px">
+    @{
+        @if (TempData["MensagemErroLogin"] != null)
+        {
+            <div class="alert alert-warning">
+                <strong>Atenção!</strong> @TempData["MensagemErroLogin"]
+            </div>
+        }
+    }
+    <form asp-controller="Usuario" asp-action="ValidarLogin">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" asp-for="Email">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Senha:</label>
+            <input type="password" class="form-control" asp-for="Senha">
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox"> Lembrar meu acesso</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+        <button type="button" onclick="Registrar()" class="btn btn-default">Registrar</button>
+    </form>
+</div>
+
+<script>
+    function Registrar() {
+        window.location.href = "../../Usuario/NovoUsuario";
+    }
+</script>

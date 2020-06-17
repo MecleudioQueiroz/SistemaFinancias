@@ -15,7 +15,11 @@ namespace SistemaFinancias.Models
         public string Data { get; set; }
         public string DataFinal { get; set; } //utilizado para filtros
         public string Tipo { get; set; }
+
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         public double Valor { get; set; }
+
         public string Descricao { get; set; }
 
         public int Conta_Id { get; set; }
@@ -72,7 +76,7 @@ namespace SistemaFinancias.Models
 
             //utilizado pela view Extrato
             string filtro = "";
-            var vSaldoConta = "";
+            
             if ((Data != null) && (DataFinal != null))
             {
                 filtro += $"and t.Data >= '{DateTime.Parse(Data).ToString("yyy/MM/dd")}'and t.Data <= '{DateTime.Parse(DataFinal).ToString("yyy/MM/dd")}'";
@@ -140,6 +144,51 @@ namespace SistemaFinancias.Models
         {
             string sql = $"delete from transacao where Id = '{id}'";
             new DAL().ExecultarComandoSql(sql);
+        }
+    }
+
+    public class Dashboard
+    {
+        public IHttpContextAccessor HttpContextAccessor { get; set; }
+
+        public Dashboard()
+        {
+
+        }
+
+        public Dashboard(IHttpContextAccessor httpContextAccessor)
+        {
+            HttpContextAccessor = httpContextAccessor;
+        }
+
+        public double Total { get; set; }
+        public string PlanoConta { get; set; }
+
+        public List<Dashboard> Listadashboards()
+        {
+            string UsuarioLogado = HttpContextAccessor.HttpContext.Session.GetString("IdUsuarioLogado");
+
+            List<Dashboard> Lista = new List<Dashboard>();
+            Dashboard item;
+
+            string sql = "select p.Descricao, sum(t.Valor) as Total " + 
+            "from transacao as t inner join plano_contas as p " +
+            $"on t.Plano_Contas_Id = p.Id where t.Tipo = 'D' and t.Usuario_Id = {UsuarioLogado} " +
+            "group by p.Descricao; ";
+
+            DAL dao = new DAL();
+            DataTable dt = new DataTable();
+            dt = dao.retDataTable(sql);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                item = new Dashboard();
+                item.Total = double.Parse(dt.Rows[i]["Total"].ToString());
+                item.PlanoConta = dt.Rows[i]["Descricao"].ToString();
+                Lista.Add(item);
+            }
+
+            return Lista;
         }
     }
 }
