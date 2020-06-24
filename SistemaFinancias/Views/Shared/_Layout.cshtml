@@ -30,9 +30,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>                  
+                    <li><a asp-area="" asp-controller="Home" asp-action="Menu">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Sobre</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contato</a></li>                  
                 </ul>
 
                 @using Microsoft.AspNetCore.Http;
@@ -85,8 +85,10 @@
             var divNome = document.getElementById("NomeUsuarioLogado");
             divNome.innerHTML = "Olá, " + nome + " <a href='../Usuario/Logar/0'>(sair)</a>";
             divNome.style = "color:#ffffff;text-align: right; height:50px; padding-top:13px"  
+
+            windows.location.href = "../Home/Menu";
         }
-        else
+        if (nome == "")
         {
             window.location.href = "../Usuario/Logar";
         }

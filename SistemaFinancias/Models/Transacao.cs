@@ -102,7 +102,7 @@ namespace SistemaFinancias.Models
                          " from transacao as t inner join conta c " +
                          " on t.Conta_Id = c.Id inner join plano_Contas as p" +
                          " on t.Plano_Contas_Id = p.Id " +
-                         $" where t.Usuario_Id = {UsuarioLogado} {filtro} order by t.Data desc limit 10";
+                         $" where t.Usuario_Id = {UsuarioLogado} {filtro} order by t.Data";
             DAL dal = new DAL();
             DataTable dt = dal.retDataTable(sql);
 
